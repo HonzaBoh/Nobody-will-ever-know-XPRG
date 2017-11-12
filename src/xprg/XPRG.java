@@ -190,7 +190,12 @@ public class XPRG {
     }
     
     public static int[] Gates(){
-        int[][] brany = {{0, 0, 0, 0, 0},
+        System.out.println("\n" + 
+                "Vítejte, zde budete procházet branami, ale pozor ne všechny jsou správné.\n" + 
+                "V prvních čtyřech řadách je vždy jedna náhodně vybraná brána špatná pokud si ji vyberete prohráváte, pokud si vyberete správnou bránu, pokračujete na další řadu.\n" +
+                "Jakmile si vyberete všechny čtyři brány správně budete mít za úkol se vrátit, ale tentokrát už bude správně jen jedna brána.\n" +
+                "Hráči si mohou vybírat brány pomocí číslic napsaných na branách, pokud zvolí jinou číslici automaticky prohrávají.");
+        int[][] gates = {{0, 0, 0, 0, 0},
                          {0, 0, 0, 0},
                          {0, 0, 0},
                          {0, 0},
@@ -199,20 +204,25 @@ public class XPRG {
             System.out.println(Arrays.toString(brany[i]));
         }*/
         Random random = new Random();
-        for(int i = 0; i < brany.length; i++){
-            int ran = random.nextInt(brany[i].length);
-            brany[i][ran] = 1;
-            System.out.println(Arrays.toString(brany[i]));
+        for(int i = 0; i < gates.length; i++){
+            int ran = random.nextInt(gates[i].length);
+            gates[i][ran] = 1;
+            System.out.println(Arrays.toString(gates[i]));
         }
         char tab = 9;
-        boolean p1naz = true;
-        boolean p2naz = true;
-        int x = 0;
-        int p1konec = 0;
-        int p2konec = 0;
-        int[] score = {0, 0};
-        while(x < brany.length){
-            switch(x){
+        boolean p1Alive = true; //controls if player one is alive and can continue, when false he ends
+        boolean p2Alive = true; //controls if player two is alive and can continue, when false he ends
+        int gatesArray = 0; //is set in what array are we in gates[][]
+        int p1End = 0; //in wich array from gates[][] did player one ended
+        int p2End = 0; //in wich array from gates[][] did player two ended
+        int branaHrace1 = 0;
+        int branaHrace2 = 0;
+        int branaSHrace1 = 0;
+        int branaSHrace2 = 0;
+        int[] score = {0, 0}; // score[0] is for player one, score[1] for player two
+        while(gatesArray < gates.length){
+           try{
+            switch(gatesArray){
                 case 0:
                     System.out.println(
                 "+-----------------+" + tab + "+-----------------+" + tab + "+-----------------+" + tab + "+-----------------+" + tab + "+-----------------+\n" + 
@@ -262,48 +272,95 @@ public class XPRG {
                 "+--------+--------+" + tab + "+--------+--------+\n"
                 ); break;
             }
-            if(p1naz == true){
+            if(p1Alive == true){
+               
                 Scanner sc = new Scanner(System.in);
-                System.out.println("Hraje " + User1);
-                int brana = sc.nextInt() - 1;
-                    if(brany[x][brana] == 0){
-                        System.out.println("Správná volba hráč " + User1 + " pokračuje.");
-                        p1konec = x + 1;
+                System.out.println("Hraje hráč jedna. Vyberte brány 1-" + gates[gatesArray].length + ".");
+                branaHrace1 = sc.nextInt() - 1;
+                /*if(playersChoice >= gates[gatesArray].length || playersChoice < 0){
+                System.out.println("Player one tried to go around gates, but died he doesn't continue.");
+                p1Alive = false;
+                }*/
+                    if(gates[gatesArray][branaHrace1] == 0){
+                    //    System.out.println("Správná volba hráč číslo jedna pokračuje.");
+                        p1End = gatesArray + 1;
                     }
                     else{
-                        System.out.println("Špatná volba hráč " + User1 + " končí.");
-                        p1naz = false;
+                    //    System.out.println("Špatně hráč číslo jedna končí.");
+                        p1Alive = false;
                     }
-                score[0] = p1konec * 5 + score[0];
+                score[0] = p1End * 5 + score[0];
             }
-            if(p2naz == true){
+            if(p2Alive == true){
                 Scanner sc = new Scanner(System.in);
-                System.out.println("Hraje " + User2);
-                int brana = sc.nextInt() - 1;
-                    if(brany[x][brana] == 0){
-                        System.out.println("Správná volba hráč " + User2 + " pokračuje.");
-                        p2konec = x + 1;
+                System.out.println("Hraje hráč dva. Vyberte brány 1-" + gates[gatesArray].length + ".");
+                branaHrace2 = sc.nextInt() - 1;
+                /*if(branaHrace2 > gates[gatesArray].length){
+                System.out.println("Player two tried to go around gates, but died he doesn't continue.");
+                p2Alive = false;
+                }*/
+                    if(gates[gatesArray][branaHrace2] == 0){
+                    //    System.out.println("Správná volba hráč číslo dva pokračuje.");
+                        p2End = gatesArray + 1;
                     }
                     else{
-                        System.out.println("Špatná volba hráč " + User2 + " končí.");
-                        p2naz = false;
+                    //    System.out.println("Špatně hráč číslo dva končí.");
+                        p2Alive = false;
                     }
-                score[1] = p2konec * 5 + score[1];
+                score[1] = p2End * 5 + score[1];
             }
-            x++;
-            if(p1naz == false && p2naz == false){
-                System.out.println("Hráči jedna bylo přičteno " + score[0] + " bodů");
-                System.out.println("Hráči dva bylo přičteno " + score[1] + " bodů");
-                x = brany.length;
+           }
+           catch(ArrayIndexOutOfBoundsException p){
+               if(branaHrace1 < 0 || branaHrace1 >= gates[gatesArray].length){
+                //    System.out.println(branaHrace1);
+                    System.out.println("Hráč jedna se snažil obejít brány a to se mu nepovedlo, hlavu mu sťala gilotina a už nepokračuje.");
+                    p1Alive = false;
+                    if(p2Alive == true){
+                        Scanner sc = new Scanner(System.in);
+                        System.out.println("Hraje hráč dva. Vyberte brány 1-" + gates[gatesArray].length + ".");
+                        branaHrace2 = sc.nextInt() - 1;
+                        if(gates[gatesArray][branaHrace2] == 0){
+                        p2End = gatesArray + 1;
+                        }
+                        else{
+                            p2Alive = false;
+                        }
+                    score[1] = p2End * 5 + score[1];
+                    }
+              }
+              if(branaHrace2 < 0 || branaHrace2 >= gates[gatesArray].length){
+                  System.out.println(branaHrace2);
+                  System.out.println("Hráč dva se snažil obejít brány a to se mu nepovedlo, hlavu mu sťala gilotina a už nepokračuje.");
+                  p2Alive = false;
+              } 
+           }
+            if(p1Alive == true){
+                System.out.println("Hráč jedna si vybral správnou bránu a tak pokračuje dál.");
+            }
+            else{
+                System.out.println("Hráč jedna si vybral špatnou bránu a umřel záhadnou smrtí, proto už nepokračuje.");
+            }
+            if(p2Alive == true){
+                System.out.println("Hráč dva si vybral správnou bránu a tak pokračuje dál.");
+            }
+            else{
+                System.out.println("Hráč dva si vybral špatnou bránu a umřel záhadnou smrtí, proto už nepokračuje.");
+            }
+            gatesArray++;
+            if(p1Alive == false && p2Alive == false){
+                System.out.println("Hráč jedna dostal " + score[0] + " bodů");
+                System.out.println("Hráč dva dostal " + score[1] + " bodů");
+                gatesArray = gates.length;
             }
         }
+        
         int[][] branyS = {{1, 1, 1, 1, 1},
                           {1, 1, 1, 1},
                           {1, 1, 1},
                           {1, 1},
                          };
-        if(x == brany.length && p1naz == true || x == brany.length && p2naz == true){
-            x = 3;
+        if(gatesArray == gates.length && p1Alive == true || gatesArray == gates.length && p2Alive == true){
+            gatesArray = 3;
             System.out.println("Prohozeno, nyní je jen jedna brána správná, zkuste se vrátit.");
             /*for(int i = 0; i < branyS.length; i++){
                 System.out.println(Arrays.toString(branyS[i]));
@@ -315,9 +372,10 @@ public class XPRG {
                 System.out.println(Arrays.toString(branyS[i]));
             }   
         }
-        int y = 0;
-        while((x >= 0 && p1naz == true) || (x >= 0 && p2naz == true)){
-            switch(x){
+        int radaSBran = 0; //když se rovná 3 tak se hráč vrátil na začátek a dokončil hru
+        while((gatesArray >= 0 && p1Alive == true) || (gatesArray >= 0 && p2Alive == true)){
+            try{
+            switch(gatesArray){
                 case 0:
                     System.out.println(
                 "+-----------------+" + tab + "+-----------------+" + tab + "+-----------------+" + tab + "+-----------------+" + tab + "+-----------------+\n" + 
@@ -367,48 +425,90 @@ public class XPRG {
                 "+--------+--------+" + tab + "+--------+--------+\n"
                 ); break;
             }
-            if(p1naz == true){
+            if(p1Alive == true){
                 Scanner sc = new Scanner(System.in);
                 System.out.println("Hraje hráč číslo jedna.");
-                int brana = sc.nextInt() - 1;
-                if(branyS[x][brana] == 0 && y != 3){
-                    System.out.println("Správná volba hráč číslo jedna pokračuje.");
-                    p1konec = y + 1;
+                branaSHrace1 = sc.nextInt() - 1;
+                if(branyS[gatesArray][branaSHrace1] == 0 && radaSBran != 3){
+                //    System.out.println("Správná volba hráč číslo jedna pokračuje.");
+                    p1End = radaSBran + 1;
                 }
-                else if(branyS[x][brana] == 0 && y == 3){
-                    System.out.println("Správná volba hráč číslo jedna došel do konce.");
-                    p1konec = y + 1;
+                else if(branyS[gatesArray][branaSHrace1] == 0 && radaSBran == 3){
+                //    System.out.println("Správná volba hráč číslo jedna došel do konce.");
+                    p1End = radaSBran + 1;
                 }
                 else{
-                    System.out.println("Špatně hráč číslo jedna končí.");
-                    p1naz = false;
+                //    System.out.println("Špatně hráč číslo jedna končí.");
+                    p1Alive = false;
                 }
-                score[0] = p1konec * 10 + score[0];
+                score[0] = p1End * 10 + score[0];
             }
-            if(p2naz == true){
+            if(p2Alive == true){
                 Scanner sc = new Scanner(System.in);
                 System.out.println("Hraje hráč číslo dva.");
-                int brana = sc.nextInt() - 1;
-                if(branyS[x][brana] == 0 && y != 3){
-                    System.out.println("Správná volba hráč číslo dva pokračuje.");
-                    p2konec = y + 1;
+                branaSHrace2 = sc.nextInt() - 1;
+                if(branyS[gatesArray][branaSHrace2] == 0 && radaSBran != 3){
+                //    System.out.println("Správná volba hráč číslo dva pokračuje.");
+                    p2End = radaSBran + 1;
                 }
-                else if(branyS[x][brana] == 0 && y == 3){
-                    System.out.println("Správná volba hráč číslo dva došel do konce.");
-                    p2konec = y + 1;
+                else if(branyS[gatesArray][branaSHrace2] == 0 && radaSBran == 3){
+                //    System.out.println("Správná volba hráč číslo dva došel do konce.");
+                    p2End = radaSBran + 1;
                 }
                 else{
-                    System.out.println("Špatně hráč číslo dva končí.");
-                    p2naz = false;
+                //    System.out.println("Špatně hráč číslo dva končí.");
+                    p2Alive = false;
                 }
-                score[1] = p2konec * 10 + score[1];
+                score[1] = p2End * 10 + score[1];
             }
-            if(x == 0 || (p1naz == false && p2naz == false)){
+            }
+            catch(ArrayIndexOutOfBoundsException p){
+               if(branaSHrace1 < 0 || branaSHrace1 >= gates[gatesArray].length){
+                //    System.out.println(branaHrace1);
+                    System.out.println("Hráč jedna se snažil obejít brány a to se mu nepovedlo, hlavu mu sťala gilotina a už nepokračuje.");
+                    p1Alive = false;
+                    if(p2Alive == true){
+                        Scanner sc = new Scanner(System.in);
+                        System.out.println("Hraje hráč dva. Vyberte brány 1-" + gates[gatesArray].length + ".");
+                        branaSHrace2 = sc.nextInt() - 1;
+                        if(gates[gatesArray][branaSHrace2] == 0){
+                        p2End = gatesArray + 1;
+                        }
+                        else{
+                            p2Alive = false;
+                        }
+                    score[1] = p2End * 10 + score[1];
+                    }
+              }
+              if(branaSHrace2 < 0 || branaSHrace2 >= gates[gatesArray].length){
+                  System.out.println("Hráč dva se snažil obejít brány a to se mu nepovedlo, hlavu mu sťala gilotina a už nepokračuje.");
+                  p2Alive = false;
+              } 
+           }
+            if(p1Alive == true){
+                System.out.println("Hráč jedna si vybral správnou bránu a tak pokračuje dál.");
+            }
+            else if(p1Alive == true && radaSBran == 3){
+                System.out.println("Hráč jedna si vybral správnou bránu, ale dále už nejsou další brány, tak vám gratuluji přežil jste.");
+            }
+            else{
+                System.out.println("Hráč jedna si vybral špatnou bránu a umřel záhadnou smrtí, proto už nepokračuje.");
+            }
+            if(p2Alive == true){
+                System.out.println("Hráč dva si vybral správnou bránu a tak pokračuje dál.");
+            }
+            else if(p2Alive == true && radaSBran == 3){
+                System.out.println("Hráč dva si vybral správnou bránu, ale dále už nejsou další brány, tak vám gratuluji přežil jste.");
+            }
+            else{
+                System.out.println("Hráč dva si vybral špatnou bránu a umřel záhadnou smrtí, proto už nepokračuje.");
+            }
+            if(gatesArray == 0 || (p1Alive == false && p2Alive == false)){
                 System.out.println("Hráči jedna bylo přičteno " + score[0] + " bodů");
                 System.out.println("Hráči dva bylo přičteno " + score[1] + " bodů");
             }
-            x--;
-            y++;
+            gatesArray--;
+            radaSBran++;
         }
         return score;
     }
