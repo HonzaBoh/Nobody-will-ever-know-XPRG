@@ -162,6 +162,7 @@ public class XPRG {
                     if(ticket.nextInt(10) != 9){
                         System.out.println("Blank ticket.");
                         System.out.println();
+                     break;
                     }
                     else{
                         int Min = 160;
@@ -207,7 +208,7 @@ public class XPRG {
         for(int i = 0; i < gates.length; i++){
             int ran = random.nextInt(gates[i].length);
             gates[i][ran] = 1;
-            System.out.println(Arrays.toString(gates[i]));
+            //System.out.println(Arrays.toString(gates[i]));
         }
         char tab = 9;
         boolean p1Alive = true; //controls if player one is alive and can continue, when false he ends
@@ -369,7 +370,7 @@ public class XPRG {
             for(int i = 0; i < branyS.length; i++){
                 int ran = random.nextInt(branyS[i].length);
                 branyS[i][ran] = 0;
-                System.out.println(Arrays.toString(branyS[i]));
+                //System.out.println(Arrays.toString(branyS[i]));
             }   
         }
         int radaSBran = 0; //když se rovná 3 tak se hráč vrátil na začátek a dokončil hru
@@ -510,6 +511,11 @@ public class XPRG {
             gatesArray--;
             radaSBran++;
         }
+        Scanner ukonceni = new Scanner(System.in);
+        System.out.println();
+        System.out.println("Pokračujte k další hře stiskem ENTER");
+        ukonceni.nextLine();
+        System.out.println();
         return score;
     }
     
@@ -622,7 +628,7 @@ public class XPRG {
             for(int i = 0; i < p1Kostky.length; i++){
                 switch(p1Kostky[i]){
                 case 1:
-                    System.out.println("Hod " + (i +1) + ". kola:");
+                    System.out.println("Hod " + (i +1) + ". kostkou:");
                     System.out.println(
                     " ___________ \n" +
                     "|           |\n" +
@@ -635,7 +641,7 @@ public class XPRG {
                     String enter1 = radka1.nextLine();
                 break;
                 case 2:
-                    System.out.println("Hod " + (i +1) + ". kola:");
+                    System.out.println("Hod " + (i +1) + ". kostkou:");
                     System.out.println(
                     " ___________ \n" +
                     "|           |\n" +
@@ -648,7 +654,7 @@ public class XPRG {
                     String enter2 = radka2.nextLine();
                 break;
                 case 3:
-                    System.out.println("Hod " + (i +1) + ". kola:");
+                    System.out.println("Hod " + (i +1) + ". kostkou:");
                     System.out.println(
                     " ___________ \n" +
                     "|           |\n" +
@@ -661,7 +667,7 @@ public class XPRG {
                     String enter3 = radka3.nextLine();
                 break;
                 case 4:
-                    System.out.println("Hod " + (i +1) + ". kola:");
+                    System.out.println("Hod " + (i +1) + ". kostkou:");
                     System.out.println(
                     " ___________ \n" +
                     "|           |\n" +
@@ -674,7 +680,7 @@ public class XPRG {
                     String enter4 = radka4.nextLine();
                 break;
                 case 5:
-                    System.out.println("Hod " + (i +1) + ". kola:");
+                    System.out.println("Hod " + (i +1) + ". kostkou:");
                     System.out.println(
                     " ___________ \n" +
                     "|           |\n" +
@@ -687,7 +693,7 @@ public class XPRG {
                     String enter5 = radka5.nextLine();
                 break;
                 case 6:
-                    System.out.println("Hod " + (i +1) + ". kola:");
+                    System.out.println("Hod " + (i +1) + ". kostkou:");
                     System.out.println(
                     " ___________ \n" +
                     "|           |\n" +
@@ -702,10 +708,10 @@ public class XPRG {
             }
             }
             System.out.println("Kostky hráče dva:");
-            for(int i = 0; i < p1Kostky.length; i++){
-                switch(p1Kostky[i]){
+            for(int i = 0; i < p2Kostky.length; i++){
+                switch(p2Kostky[i]){
                 case 1:
-                    System.out.println("Hod " + (i +1) + ". kola:");
+                    System.out.println("Hod " + (i +1) + ". kostkou:");
                     System.out.println(
                     " ___________ \n" +
                     "|           |\n" +
@@ -718,7 +724,7 @@ public class XPRG {
                     String enter1 = radka1.nextLine();
                 break;
                 case 2:
-                    System.out.println("Hod " + (i +1) + ". kola:");
+                    System.out.println("Hod " + (i +1) + ". kostkou:");
                     System.out.println(
                     " ___________ \n" +
                     "|           |\n" +
@@ -731,7 +737,7 @@ public class XPRG {
                     String enter2 = radka2.nextLine();
                 break;
                 case 3:
-                    System.out.println("Hod " + (i +1) + ". kola:");
+                    System.out.println("Hod " + (i +1) + ". kostkou:");
                     System.out.println(
                     " ___________ \n" +
                     "|           |\n" +
@@ -744,7 +750,7 @@ public class XPRG {
                     String enter3 = radka3.nextLine();
                 break;
                 case 4:
-                    System.out.println("Hod " + (i +1) + ". kola:");
+                    System.out.println("Hod " + (i +1) + ". kostkou:");
                     System.out.println(
                     " ___________ \n" +
                     "|           |\n" +
@@ -757,7 +763,7 @@ public class XPRG {
                     String enter4 = radka4.nextLine();
                 break;
                 case 5:
-                    System.out.println("Hod " + (i +1) + ". kola:");
+                    System.out.println("Hod " + (i +1) + ". kostkou:");
                     System.out.println(
                     " ___________ \n" +
                     "|           |\n" +
@@ -770,7 +776,7 @@ public class XPRG {
                     String enter5 = radka5.nextLine();
                 break;
                 case 6:
-                    System.out.println("Hod " + (i +1) + ". kola:");
+                    System.out.println("Hod " + (i +1) + ". kostkou:");
                     System.out.println(
                     " ___________ \n" +
                     "|           |\n" +
@@ -799,7 +805,14 @@ public class XPRG {
             p1Soucet = 0;
             p2Soucet = 0;
         }
-            return score;
+        
+        Scanner ukonceni = new Scanner(System.in);
+        System.out.println();
+        System.out.println("Pokračujte k další hře stiskem ENTER");
+        ukonceni.nextLine();
+        System.out.println();
+        
+        return score;
         }
     
     public static int[] Stepping(){
@@ -986,9 +999,11 @@ public class XPRG {
         Scanner dotaz = new Scanner(System.in);
         Uzivatele();
         System.out.println("Zvolte si 3 hry");
+        System.out.println("------------------------------------");
         System.out.println("1. Loterie          2. Ruská ruleta");
         System.out.println("3. Brány            4. Hod");
         System.out.println("5. Kostky");
+        System.out.println("------------------------------------");
         
         for(int round = 0; round < 3; round++){
             if(round%2 == 0){
