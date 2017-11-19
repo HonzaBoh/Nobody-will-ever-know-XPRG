@@ -39,7 +39,7 @@ public class XPRG {
                 case 3:
                     Brany hra3 = new Brany();
                     hra3.setUser1(hraci.User1);
-                    hra3.setUser1(hraci.User2);
+                    hra3.setUser2(hraci.User2);
                     hraci.addScore(hra3.Gates());
                     break;
                 case 4:
