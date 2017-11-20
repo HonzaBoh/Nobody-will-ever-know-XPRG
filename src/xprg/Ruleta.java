@@ -21,10 +21,38 @@ public class Ruleta {
     public int[] Rulette(){
         int[] score = {0, 0};
         System.out.println("Zvolte si pozici (1 - 6):");
-        String[] pozice = {"Cíl 1", "Cíl 2", "Cíl 3", "Cíl 4", "Cíl 5", "Cíl 6"};
+        String[] pozice = {"Igor", "Boris", "Dmitrij", "Vladimir", "Alexei", "Ivan"};
         
+        String prohra = "    _____\n" +
+                        "  /~/~   ~\\\n" +
+                        " | |       \\\n" +
+                        " \\ \\        \\\n" +
+                        "  \\ \\        \\\n" +
+                        " --\\ \\       .\\''\n" +
+                        "--==\\ \\     ,,i!!i,\n" +
+                        "    ''\"'',,}{,,";
+        
+        String vystrel =    "            ||||||||||||||                                                d8888o8888b\n" +
+                            "           =              \\                                               88888888888\n" +
+                            "           =               |                                             d88888888888b\n" +
+                            "          _=            ___/                                     `-..____HHHHHHHHHHHHH____.,-'\n" +
+                            "         / _\\           (o)\\                                             /___, : .___\\\n" +
+                            "        | | \\            _  \\                                           _) >=-( )-=< (_\n" +
+                            "        | |/            (____)                                         ( (    / \\    ) )\n" +
+                            "         \\__/          /   |                                            \\_\\  ((_))  /_/\n" +
+                            "          /           /  ___)                                             |)/  :  \\(|\n" +
+                            "         /    \\       \\    _)                       )                     |(,-----.)|\n" +
+                            "        \\      \\           /                       (                      \\   '\"`   /\n" +
+                            "      \\/ \\      \\_________/   |\\_________________,_ )                     |`---\"---'|\n" +
+                            "       \\/ \\      /            |     ==== _______)__)                      |   `-'   |\n" +
+                            "        \\/ \\    /           __/___  ====_/\n" +
+                            "         \\/ \\  /           (O____)\\\\_(_/\n" +
+                            "                          (O_ ____)\n" +
+                            "                           (O____)\n";
+
         Random reload = new Random();
         int bullet = reload.nextInt(pozice.length);
+        
         
         System.out.println(Arrays.toString(pozice));
         Scanner dotaz = new Scanner(System.in);
@@ -47,7 +75,24 @@ public class Ruleta {
         System.out.println("Po zmáčknutí klávesy ENTER bude jeden z šesti cílů zastřelen");
         Scanner dotaz2 = new Scanner(System.in);
         dotaz2.nextLine();
-        System.out.println("Zastřelen byl hráč na pozici " + (bullet + 1) +": " + pozice[bullet]);
+        boolean shot = false;
+     
+        for(int i = 0; i < pozice.length && !shot; i++){
+            System.out.println("                                                                           " +pozice[i]);
+            System.out.println(vystrel);
+            dotaz2.nextLine();
+            
+            if(i == bullet){
+                System.out.println(pozice[i]);
+                System.out.println(prohra);
+                shot = true;
+            }
+            else{
+                System.out.println("V komoře nebyl náboj");
+            }
+        
+        }
+        System.out.println("Náboj byl v " + (bullet + 1) +". komoře, zastřelen byl: " + pozice[bullet]);
         pozice[bullet] = "ZASTŘELENÝ";
         System.out.println(Arrays.toString(pozice));
         System.out.println("Přeživší dostávají 50 bodů!");
