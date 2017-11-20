@@ -16,6 +16,12 @@ public class Kostky {
     }
     
     public int[] Cubes(){
+        System.out.println("\n" + 
+                "Vítejte. Zde budete hádat kolik jste dohromady hodili všemi kostkami.\n" +
+                "Počet kostek si vyberete na začátku hry. Počet kostek zůstává stejný všechy 3. kola.\n" + 
+                "Po zvolení počtu kostek budou hráči hádat kolik je součet všech jimi hozených kostek.\n" +
+                "Hráč který se více přiblíží hozené hodnotě vyhrává. Za přesné uhodnutí součtu jsou bonusové body.\n" + 
+                "Hodně štěstí.\n");
         Scanner sc = new Scanner(System.in);
         System.out.println("Zvolte počet kostek pro oba hráče.");
         int pocetKostek = sc.nextInt();
@@ -52,15 +58,31 @@ public class Kostky {
             int p2Hod = cc.nextInt();
             int p1Rozdil = p1Soucet - p1Hod;
             int p2Rozdil = p2Soucet - p2Hod;
-            if (p1Rozdil == 0){
-                score[0] += 100;
-                p1Vyhral = true;
+            if (p1Rozdil == 0 && p1Vyhral == false){
+                if(p1Rozdil == 0 && p2Rozdil < 0 && p1Vyhral == false){
+                    p2Rozdil = p2Rozdil * (-1);
+                    score[0] += 100;
+                    p1Vyhral = true;
                 }
-            if (p2Rozdil == 0){
-                score[1] += 100;
-                p2Vyhral = true;
+                else if(p1Rozdil == 0){
+                    score[0] += 100;
+                    p1Vyhral = true;
                 }
-            if(p1Rozdil > 0 && p2Rozdil > 0){
+                
+            }
+            if (p2Rozdil == 0 && p2Vyhral == false){
+                if(p2Rozdil == 0 && p1Rozdil < 0 && p2Vyhral == false){
+                    p1Rozdil = p1Rozdil * (-1);
+                    score[1] += 100;
+                    p2Vyhral = true;
+                }
+                else if(p2Rozdil == 0){
+                    score[1] += 100;
+                    p2Vyhral = true;
+                }
+                
+            }
+            if(p1Rozdil > 0 && p2Rozdil > 0 && p1Vyhral == false && p2Vyhral == false){
                 if(p1Rozdil == p2Rozdil){
                     score[0] += 50;
                     score[1] += 50;
@@ -76,7 +98,7 @@ public class Kostky {
                     p2Vyhral = true;
                 }
             }
-            if(p1Rozdil < 0 && p2Rozdil > 0){
+            if(p1Rozdil < 0 && p2Rozdil > 0 && p1Vyhral == false && p2Vyhral == false){
                 p1Rozdil = p1Rozdil * (-1);
                 if(p1Rozdil == p2Rozdil){
                     score[0] += 50;
@@ -84,12 +106,16 @@ public class Kostky {
                     p1Vyhral = true;
                     p2Vyhral = true;
                 }
-                if(p1Rozdil < p2Rozdil){
+                else if(p1Rozdil < p2Rozdil){
                     score[0] += 50;
                     p1Vyhral = true;
-                }    
+                }
+                else{
+                    score[1] += 50;
+                    p2Vyhral = true;
+                }
             }
-            if(p2Rozdil < 0 && p1Rozdil > 0){
+            if(p2Rozdil < 0 && p1Rozdil > 0 && p1Vyhral == false && p2Vyhral == false){
                 p2Rozdil = p2Rozdil * (-1);
                 if(p1Rozdil == p2Rozdil){
                     score[0] += 50;
@@ -97,12 +123,16 @@ public class Kostky {
                     p1Vyhral = true;
                     p2Vyhral = true;
                 }
-                if(p2Rozdil < p1Rozdil){
+                else if(p2Rozdil < p1Rozdil){
                     score[1] += 50;
                     p2Vyhral = true;
-                }    
+                }
+                else{
+                    score[0] += 50;
+                    p1Vyhral = true;
+                }
             }
-            if(p1Rozdil < 0 && p2Rozdil < 0){
+            if(p1Rozdil < 0 && p2Rozdil < 0 && p1Vyhral == false && p2Vyhral == false){
                 p1Rozdil *= -1;
                 p2Rozdil *= -1;
                 if(p1Rozdil == p2Rozdil){
@@ -111,7 +141,7 @@ public class Kostky {
                     p1Vyhral = true;
                     p2Vyhral = true;
                 }
-                if(p1Rozdil < p2Rozdil){
+                else if(p1Rozdil < p2Rozdil){
                     score[0] += 50;
                     p1Vyhral = true;
                 }
@@ -287,11 +317,11 @@ public class Kostky {
             }
             }
             System.out.println("Součet hráče " + User1 + ": "+ p1Soucet + "\nRozdíl hráče " + User1 + ": " + p1Rozdil + "\n" + "\nSoučet hráče " + User2 + ": " + p2Soucet + "\nRozdíl hráče " + User2 + ": " + p2Rozdil);
-            if(p1Vyhral == true){
-                System.out.println("Toto kolo vyhrál hráč " + User1 + ", má celkem " + score[0] + " bodů");
+            if(p1Vyhral == true && p2Vyhral == true){
+                System.out.println("Toto kolo se oba hráči přiblížili hádanou hodnotou k součtu hráč " + User1 + " má celkem " + score[0] + " bodů a hráč " + User2 + " má celkem "+ score[1] + " bodů.");
             }
-            else if(p1Vyhral == true && p2Vyhral == true){
-                System.out.println("Toto kolo oba hráči přesně uhodli přesnou hodnotu součtu dostávjí 100 bodů");
+            else if(p1Vyhral == true){
+                System.out.println("Toto kolo vyhrál hráč " + User1 + ", má celkem " + score[0] + " bodů");
             }
             else{
                 System.out.println("Toto kolo vyhrál hráč " + User2 + ", má celkem " + score[1] + " bodů");
@@ -300,6 +330,8 @@ public class Kostky {
             String dale = pokracuj.nextLine();
             p1Soucet = 0;
             p2Soucet = 0;
+            p1Vyhral = false;
+            p2Vyhral =false;
         }
         
         Scanner ukonceni = new Scanner(System.in);
