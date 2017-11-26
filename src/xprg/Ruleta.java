@@ -20,7 +20,9 @@ public class Ruleta {
     
     public int[] Rulette(){
         int[] score = {0, 0};
-        System.out.println("Zvolte si pozici (1 - 6):");
+        System.out.println("V této hře si zvolíte, která komora na vás padne.");
+        System.out.println("V jedné komoře je náboj.");
+        System.out.println("Zvolte si pozici (1 - 6), kde nahradíte jednoho z Rusů a stanete se možným cílem:");
         String[] pozice = {"Igor", "Boris", "Dmitrij", "Vladimir", "Alexei", "Ivan"};
         
         String prohra = "    _____\n" +
@@ -57,10 +59,31 @@ public class Ruleta {
         System.out.println(Arrays.toString(pozice));
         Scanner dotaz = new Scanner(System.in);
         System.out.println("Pozice hráče "+ User1 + ":");
-        int pozice1 = dotaz.nextInt() - 1;
+        boolean zvolenoU1 = false;
+        int pozice1 = 0;
+        while(!zvolenoU1){
+            pozice1 = dotaz.nextInt() - 1;
+            if(pozice1 > 5){
+                System.out.println("Zadali jste větší číslo, než je počet komor");
+                System.out.println("Zadejte číslo znovu");
+            }else{
+                zvolenoU1 = true;
+            }
+        }
         pozice[pozice1] = User1;
         System.out.println("Pozice hráče " + User2 + ":");
-        int pozice2 = dotaz.nextInt() - 1;
+        boolean zvolenoU2 = false;
+        int pozice2 = 0;
+        while(!zvolenoU2){
+        pozice2 = dotaz.nextInt() - 1;
+        if(pozice2 > 5 || pozice2 == pozice1){
+                System.out.println("Zadali jste větší číslo, než je počet komor, nebo jste zvolil číslo obsazené hráčem, který volil před vámi.");
+                System.out.println("Zadejte číslo znovu");
+            }else{
+                zvolenoU2 = true;
+            }
+        
+        }
         pozice[pozice2] = User2;
         System.out.println(Arrays.toString(pozice));
         

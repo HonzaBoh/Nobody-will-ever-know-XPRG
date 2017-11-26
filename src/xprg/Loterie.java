@@ -23,11 +23,18 @@ public class Loterie {
         boolean played = false;
         int i = 1;
         Random ticket = new Random();
+        Scanner confirm = new Scanner(System.in);
+        
+        System.out.println("Zde bude možnost zvolit si ticket.");
+        System.out.println("Každý ticket má šanci na úspěch.");
+        System.out.println("Úspěšný ticket hráče odmění náhodným počtem bodů z jeho rozmezí.");
+        System.out.println("Poslední položka označuje číslo ticketu, které uživatel zadá, když si ho vybere.");
+        confirm.nextLine();
         
         char tab = 9;
         System.out.println("2. řádek - šance na úspěch\n" + "3. řádek - počet bodů\n " + "\n" +
             "+-------------------------+" + tab + "+-------------------------+" + tab + "+-------------------------+" + tab + "+-------------------------+" + tab + "+-------------------------+\n" +
-            "|         Lístek          |" + tab + "|         Lístek          |" + tab + "|         Lístek          |" + tab + "|         Lístek          |" + tab + "|         Lístek          |\n" +
+            "|         Ticket          |" + tab + "|         Ticket          |" + tab + "|         Ticket          |" + tab + "|         Ticket          |" + tab + "|         Ticket          |\n" +
             "|           90%           |" + tab + "|           75%           |" + tab + "|           50%           |" + tab + "|           25%           |" + tab + "|           10%           |\n" +
             "|          10-15          |" + tab + "|          20-35          |" + tab + "|          40-75          |" + tab + "|          80-155         |" + tab + "|         160-320         |\n" +
             "|            1            |" + tab + "|            2            |" + tab + "|            3            |" + tab + "|            4            |" + tab + "|            5            |\n" +
@@ -53,7 +60,7 @@ public class Loterie {
                         int Min = 10;
                         int Max = 15;
                         int vysledek = Min + (int)(Math.random() * ((Max - Min) + 1));
-                        System.out.println("Hráč si vytáhl ticket v hodnotě " + vysledek + " bodů!");
+                        System.out.println("Vytáhl jste ticket v hodnotě " + vysledek + " bodů!");
                         System.out.println();
                         score[i-1] = vysledek;
                     }
@@ -67,7 +74,7 @@ public class Loterie {
                         int Min = 20;
                         int Max = 35;
                         int vysledek = Min + (int)(Math.random() * ((Max - Min) + 1));
-                        System.out.println("Hráč si vytáhl ticket v hodnotě " + vysledek + " bodů!");
+                        System.out.println("Vytáhl jste ticket v hodnotě " + vysledek + " bodů!");
                         System.out.println();
                         score[i-1] = vysledek;
                     }
@@ -81,7 +88,7 @@ public class Loterie {
                         int Min = 40;
                         int Max = 75;
                         int vysledek = Min + (int)(Math.random() * ((Max - Min) + 1));
-                        System.out.println("Hráč si vytáhl ticket v hodnotě " + vysledek + " bodů!");
+                        System.out.println("Vytáhl jste ticket v hodnotě " + vysledek + " bodů!");
                         System.out.println();
                         score[i-1] = vysledek;
                     }
@@ -95,7 +102,7 @@ public class Loterie {
                         int Min = 80;
                         int Max = 155;
                         int vysledek = Min + (int)(Math.random() * ((Max - Min) + 1));
-                        System.out.println("Hráč si vytáhl ticket v hodnotě " + vysledek + " bodů!");
+                        System.out.println("Vytáhl jste ticket v hodnotě " + vysledek + " bodů!");
                         System.out.println();
                         score[i-1] = vysledek;
                     }
@@ -110,12 +117,15 @@ public class Loterie {
                         int Min = 160;
                         int Max = 300;
                         int vysledek = Min + (int)(Math.random() * ((Max - Min) + 1));
-                        System.out.println("Hráč si vytáhl ticket v hodnotě " + vysledek + " bodů!");
+                        System.out.println("Vytáhl jste ticket v hodnotě " + vysledek + " bodů!");
                         System.out.println();
                         score[i-1] = vysledek;
                     }
                     break;
-            
+                default:
+                    System.out.println("Toto číslo neoznačuje žádný ticket");
+                    i--;
+                    break;
             }
            
             if(i == 2){
