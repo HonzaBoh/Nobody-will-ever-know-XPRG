@@ -17,11 +17,10 @@ public class Kostky {
     
     public int[] Cubes(){
         System.out.println("\n" + 
-                "Vítejte. Zde budete hádat kolik jste dohromady hodili všemi kostkami.\n" +
+                "Zde budete hádat kolik jste dohromady hodili všemi kostkami.\n" +
                 "Počet kostek si vyberete na začátku hry. Počet kostek zůstává stejný všechy 3. kola.\n" + 
                 "Po zvolení počtu kostek budou hráči hádat kolik je součet všech jimi hozených kostek.\n" +
-                "Hráč který se více přiblíží hozené hodnotě vyhrává. Za přesné uhodnutí součtu jsou bonusové body.\n" + 
-                "Hodně štěstí.\n");
+                "Hráč který se více přiblíží hozené hodnotě vyhrává. Za přesné uhodnutí součtu jsou bonusové body.\n");
         Scanner sc = new Scanner(System.in);
         System.out.println("Zvolte počet kostek pro oba hráče.");
         int pocetKostek = sc.nextInt();

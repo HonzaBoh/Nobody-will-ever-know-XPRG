@@ -18,11 +18,10 @@ public class Brany {
     
     public int[] Gates(){
         System.out.println("\n" + 
-                "Vítejte. Zde budete procházet branami, ale pozor ne všechny jsou správné.\n" + 
+                "Zde budete procházet branami, ale pozor ne všechny jsou správné.\n" + 
                 "V prvních čtyřech řadách je vždy jedna náhodně vybraná brána špatná. Pokud si ji vyberete prohráváte, pokud si vyberete správnou bránu, pokračujete na další řadu.\n" +
                 "Jakmile si vyberete všechny čtyři brány správně budete mít za úkol se vrátit, ale tentokrát už bude správně jen jedna brána.\n" +
-                "Hráči si mohou vybírat brány pomocí číslic napsaných na branách, pokud zvolí jinou číslici automaticky prohrávají.\n" + 
-                "Hodně štěstí.\n");
+                "Hráči si mohou vybírat brány pomocí číslic napsaných na branách, pokud zvolí jinou číslici automaticky prohrávají.\n");
         int[][] gates = {{0, 0, 0, 0, 0},
                          {0, 0, 0, 0},
                          {0, 0, 0},
